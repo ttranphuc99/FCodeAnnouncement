@@ -1,8 +1,9 @@
 $('.login100-form-btn').click(function () {
   var info = $('.input100').val().toUpperCase();
+  checkOneTime(info);
 
   if (info != "" && info != null) {
-    validation(info);
+    if (check) validation(info);
 
     if (check) checkExist(info);
 
@@ -19,6 +20,17 @@ $('.login100-form-btn').click(function () {
         $('.wrap-login100').eq(1).css("transform", "scale(1)");
         console.log('in');
       }, 30000);
+
+      localStorage.setItem("FCODE2018", info);
     }
   }
-})
+});
+
+function checkOneTime(str) {
+  var memory = localStorage.getItem("FCODE2018");
+
+  if (memory != null && str != memory) {
+    check = false;
+    alert("You cannot find your friend's result!");
+  }
+}
